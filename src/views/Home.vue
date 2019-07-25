@@ -5,7 +5,7 @@
         <div class="top__logo"><img :src="require(`../assets/images/logo.png`)"><h1>{{ title }}</h1></div>
         <div class="top__sign-in">sign-in</div>
         <div class="top__sign-out">sign-out</div>
-        <div class="top__drop drop"> sity
+        <div class="top__drop drop"> city
           <div class="drop__wrap">
             <div class="drop__item">Kyiv</div>
             <div class="drop__item">Lviv</div>
