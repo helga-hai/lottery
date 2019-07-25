@@ -1,0 +1,21 @@
+{
+    "info": {},
+    "data": {
+        "id": "27",
+        "type": "training",
+        "date": "1561043835867",
+        "status": "planned",
+        "teams": [
+            {
+                "id": "12",
+                "teamName": "Example Team Name",
+                "admin": "",
+                "players": "",
+                "captain": "",
+                "city": "Kiev",
+                "events": [],
+                "favoriteFields": []
+            }
+        ]
+    }
+}

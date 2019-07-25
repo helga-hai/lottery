@@ -1,0 +1,20 @@
+{
+    "player": {
+        "id": "9",
+        "user-id": "91",
+        "name": "Дмитрий",
+        "role": "forward",
+        "healthStatus": "true",
+        "teams": [],
+        "events": [],
+        "location": {
+            "city": "Ivano-Frankivsk",
+            "district": ""
+        },
+        "contact": {
+            "email": "dimon@example.com",
+            "phone": "099001122"
+        },
+        "competitions": []
+    }
+}
