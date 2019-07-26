@@ -109,6 +109,18 @@ export default {
     };
   },
   methods: {
+    getRandomArray(){
+      function getArray(){ 
+        return [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
+        .map((a) => ({sort: Math.random(), value: a}))
+        .sort((a, b) => a.sort - b.sort)
+        .map((a) => a.value)
+        .splice(0,5)
+      };
+      //Array(5).fill(0).map(item=>item=getArray())
+      return this.checkedList = this.checkedList.map(item=>item=getArray())
+
+    },
     onCloseAction(){
       this.isPopupVisible = false;
     },
