@@ -1,5 +1,5 @@
 <template>
-  <button :class="['btn', view]" :disabled="disabled" @click="onClick">
+  <button :class="['btn', view]" :disabled="disabled" @click="onClickInner">
     <slot></slot>
   </button>
 </template>
@@ -26,6 +26,11 @@ export default {
   },
   data() {
     return {};
+  },
+  methods:{
+    onClickInner(){
+      this.$emit('onPopup', event.target);
+    }
   }
 };
 </script>

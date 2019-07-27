@@ -17,60 +17,36 @@
 
       <Ttabs :list="tabsList"/>
 
-      <div class="block" >
-        <div class="line">
-          <div class="ticket num-01" data-id="1">
-            <input type="button" v-for="item in 20" :key="item" :value="item" @click="onClick" class="ticket__item"/>
-          </div>
-          <div class="ticket num-02" data-id="2">
-            <input type="button" v-for="item in 20" :key="item" :value="item" @click="onClick" class="ticket__item" />
-          </div>
-          <div class="ticket num-03" data-id="3">
-            <input type="button" v-for="item in 20" :key="item" :value="item" @click="onClick" class="ticket__item" />
-          </div>
-          <div class="ticket num-04" data-id="4">
-            <input type="button" v-for="item in 20" :key="item" :value="item" @click="onClick" class="ticket__item" />
-          </div>
-          <div class="ticket num-05" data-id="5">
-            <input type="button" v-for="item in 20" :key="item" :value="item" @click="onClick" class="ticket__item" />
-          </div>
+      <block-line @onClickLine="onClickLine" :blockId="921"  :id="921">
+        <ticket-vue :num="1" @onClick="onClick"/>
+        <ticket-vue :num="2" @onClick="onClick"/>
+        <ticket-vue :num="3" @onClick="onClick"/>
+        <ticket-vue :num="4" @onClick="onClick"/>
+        <ticket-vue :num="5" @onClick="onClick"/>
+        <div class="controls" slot="controls"> 
+          <div v-show="error" class="error">{{ error['921'] }}</div>
+          <TButton v-if="isVisibleButton" @onPopup="onPopup">Check</TButton>
+          <TButton v-else disabled>Check</TButton>
         </div>
-        <div class="controls">
-          <div v-show="error" class="error">{{ error }}</div>
+      </block-line>
+
+      <block-line @onClickLine="onClickLine" :blockId="134" :id="134">
+        <ticket-vue :num="1" @onClick="onClick"/>
+        <ticket-vue :num="2" @onClick="onClick"/>
+        <ticket-vue :num="3" @onClick="onClick"/>
+        <ticket-vue :num="4" @onClick="onClick"/>
+        <ticket-vue :num="5" @onClick="onClick"/>
+        <div class="controls" slot="controls">
+          <div v-show="error" class="error">{{ error['134'] }}</div>
           <TButton v-if="isVisibleButton" @click="onPopup">Check</TButton>
           <TButton v-else disabled>Check</TButton>
         </div>
-      </div>
-      
-      <!--div class="block" >
-        <div class="line">
-          <div class="ticket num-01" data-id="1">
-            <input type="button" v-for="item in 20" :key="item" :value="item" @click="onClick" class="ticket__item"/>
-          </div>
-          <div class="ticket num-02" data-id="2">
-            <input type="button" v-for="item in 20" :key="item" :value="item" @click="onClick" class="ticket__item" />
-          </div>
-          <div class="ticket num-03" data-id="3">
-            <input type="button" v-for="item in 20" :key="item" :value="item" @click="onClick" class="ticket__item" />
-          </div>
-          <div class="ticket num-04" data-id="4">
-            <input type="button" v-for="item in 20" :key="item" :value="item" @click="onClick" class="ticket__item" />
-          </div>
-          <div class="ticket num-05" data-id="5">
-            <input type="button" v-for="item in 20" :key="item" :value="item" @click="onClick" class="ticket__item" />
-          </div>
-        </div>
-        <div class="controls">
-          <div v-show="error" class="error">{{ error }}</div>
-          <TButton :disabled="isVisibleButton">Check</TButton>
-        </div>
-      </div-->
+      </block-line>
 
     </section>
     <section name="popup">
       <Popup :visible="isPopupVisible" @onClose="onCloseAction">
-        {{`Сongratulations!
-        Winning numbers: ${checkedList.join('')}`}}
+        <h2>{{getRandomArray()}}</h2>
       </Popup>
     </section>
   </main-layout>
@@ -81,6 +57,8 @@ import MainLayout from "@/layouts/MainLayout";
 import Ttabs from "@/components/Ttabs";
 import TButton from "@common/TButton";
 import Popup from "@/components/common/Popup";
+import TicketVue from "@/components/ticket";
+import BlockLine from "@/components/BlockLine";
 export default {
   name: "Home",
   components: {
@@ -88,6 +66,8 @@ export default {
     Ttabs,
     TButton,
     Popup,
+    TicketVue,
+    BlockLine
   },
   data() {
     return {
@@ -100,26 +80,32 @@ export default {
       ],
       activeTab: 1,
       isPopupVisible: false,
-      list:[[],[],[],[],[]],
-      error: '',
+      
+      objLists:{},
+      error: {
+        '921': '',
+        '134': ''
+      },
       isVisibleButton: false,
       id:'',
       blockId: '',
-      checkedList:[[1,2,3,4,5],[6,7,8,9,10],[11,12,13,14,15],[16,17,18,19,20]]
     };
   },
   methods: {
+    onClickLine(blockIdVal){
+      this.blockIdVal=blockIdVal
+      //console.log(this.blockIdVal)
+    },
     getRandomArray(){
-      function getArray(){ 
-        return [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
-        .map((a) => ({sort: Math.random(), value: a}))
-        .sort((a, b) => a.sort - b.sort)
-        .map((a) => a.value)
-        .splice(0,5)
-      };
-      //Array(5).fill(0).map(item=>item=getArray())
-      return this.checkedList = this.checkedList.map(item=>item=getArray())
-
+        //Array(5).fill(0).map(item=>item=getArray())
+        return [[1,2,3,4,5],[6,7,8,9,10],[11,12,13,14,15],[16,17,18,19,20],[16,17,18,19,20]].map(item=>item=this.getArray())
+      },
+    getArray(){ 
+      return [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
+      .map((a) => ({sort: Math.random(), value: a}))
+      .sort((a, b) => a.sort - b.sort)
+      .map((a) => a.value)
+      .splice(0,5)
     },
     onCloseAction(){
       this.isPopupVisible = false;
@@ -127,26 +113,33 @@ export default {
     onPopup(active) {
       this.isPopupVisible = !this.isPopupVisible;
     },
-    onClick(){
-      let index = event.target.parentElement.dataset.id-1;
-      let el = event.target;
-      if(this.list[index].length<5){
+    onClick({el,valueId}){
+      
+      //console.log(el.closest('[id]').getAttribute("id"))
+      const parentID = el.closest('[id]').getAttribute("id")
+
+      if(!this.objLists['list_'+parentID]){
+        this.objLists['list_'+parentID] = [[],[],[],[],[]]
+      }
+      
+      let index = valueId-1;
+
+      if(this.objLists['list_'+parentID][index].length<5){
         el.disabled = true;
-        this.list[index].push(el.value);
-        if(this.list[index].length==5){
-          event.target.parentElement.classList.add('ready');
+        this.objLists['list_'+parentID][index].push(el.value);
+        if(this.objLists['list_'+parentID][index].length==5){
+          el.parentElement.classList.add('ready');
         }
-      } else if(this.list[index].length==5) {
+      } else if(this.objLists['list_'+parentID][index].length==5) {
         event.preventDefault;
-        this.error = '* Необходимо выбрать всего 5 позиций в карточке';
+        this.error[parentID] = '* Необходимо выбрать всего 5 позиций в карточке';
       }
 
-      if(this.list.every(item=>item.length==5)){
+      if(this.objLists['list_'+parentID].every(item=>item.length==5)){
         this.isVisibleButton = true;
       }
 
     }
-
   },
 };
 </script>
@@ -154,10 +147,9 @@ export default {
 <style lang="scss">
 
 .block {
-    width: 795px;
-    margin: 0 auto;
-  }
-.line {
+  width: 795px;
+  margin: 0 auto;
+  &__line {
     border: 2px solid #92acf1;
     border-radius: 4px;
     padding: 4px;
@@ -167,6 +159,7 @@ export default {
     align-items: center;
     grid-gap: 5px;
     margin: 50px 0 10px;
+  }
 }
 .ready {
     border: 2px solid #ef8787;
@@ -279,14 +272,14 @@ export default {
   position: relative;
     &:hover .drop__wrap{
       display:block; 
-       visibility: visible; /* shows sub-menu */
+       visibility: visible;
         opacity: 1;
         z-index: 1;
         transform: translateY(0%);
         transition-delay: 0s, 0s, 0.3s;
     }
     .drop__wrap{
-      visibility: hidden; /* hides sub-menu */
+      visibility: hidden; 
       opacity: 0;
       position: absolute;
       top: 100%;
