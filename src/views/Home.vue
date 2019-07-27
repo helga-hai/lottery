@@ -3,16 +3,20 @@
     <section class="section">
       <header class="top">
         <div class="top__logo"><img :src="require(`../assets/images/logo.png`)"><h1>{{ title }}</h1></div>
-        <div class="top__sign-in">sign-in</div>
-        <div class="top__sign-out">sign-out</div>
-        <div class="top__drop drop"> city
-          <div class="drop__wrap">
-            <div class="drop__item">Kyiv</div>
-            <div class="drop__item">Lviv</div>
-            <div class="drop__item">Dnipro</div>
-          </div>
+        <div class="top__round round">
+          <div class="top__sign-in button-s">sign-in<a href="#"></a></div>
+          <div class="top__sign-out button-s">sign-out<a href="#"></a></div>
+          <div class="top__drop drop button-s" @mouseover="showDropdown=true" >city<a href="#"></a></div>
+          <div class="top__basket button-s">basket<a href="#"></a></div>
         </div>
-        <div class="top__basket">basket</div>
+        <div style="height:19px"></div>
+        <transition name="fade" :duration="500">
+          <div class="top__addition" v-if="showDropdown" @mouseover="showDropdown=true" @mouseleave="showDropdown=false">
+            <div class="top__item"><a href="#">Kyiv</a></div>
+            <div class="top__item"><a href="#">Lviv</a></div>
+            <div class="top__item"><a href="#">Dnipro</a></div>
+          </div>
+        </transition>
       </header>
 
       <Ttabs :list="tabsList"/>
@@ -89,12 +93,12 @@ export default {
       isVisibleButton: false,
       id:'',
       blockId: '',
+      showDropdown: false
     };
   },
   methods: {
     onClickLine(blockIdVal){
       this.blockIdVal=blockIdVal
-      //console.log(this.blockIdVal)
     },
     getRandomArray(){
         //Array(5).fill(0).map(item=>item=getArray())
@@ -115,7 +119,6 @@ export default {
     },
     onClick({el,valueId}){
       
-      //console.log(el.closest('[id]').getAttribute("id"))
       const parentID = el.closest('[id]').getAttribute("id")
 
       if(!this.objLists['list_'+parentID]){
@@ -139,7 +142,8 @@ export default {
         this.isVisibleButton = true;
       }
 
-    }
+    },
+
   },
 };
 </script>
@@ -220,56 +224,79 @@ export default {
 .top {
   display:grid;
   grid-template-rows:1fr;
-  grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 2fr 4fr;
   align-items: center;
   &__logo {
     img {
       width:190px;
     }
   }
-
+  &__round {
+    overflow: hidden;
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    border-radius: 33px;
+  }
+  &__addition {
+    //grid-column-start: 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-items: center;
+  }
+  &__item {
+    display:inline-block;
+    text-align:center;
+    &:first-child {
+      justify-self: end;
+    }
+    &:last-child {
+      justify-self: start;
+    }
+    a {
+      color: $tone-blue;
+      text-decoration: none;
+    }
+  }
   &__sign-in {
-  background-color: $tone-green;
-  height: 50px;
-  color: $color_white;
-  line-height: 50px;
-  font-size: $fs_md;
-  font-weight: bold;
-  letter-spacing: 0.4px;
-  border: 0;
-  cursor: pointer;
-  outline: none;
-  border-top-left-radius: 29px;
-  border-bottom-left-radius: 29px;
-  user-select: none;
+    background-color: $tone-blue;
+    height: 50px;
+    color: $color_white;
+    line-height: 50px;
+    font-size: $fs_md;
+    font-weight: bold;
+    letter-spacing: 0.4px;
+    border: 0;
+    outline: none;
+    border-top-left-radius: 29px;
+    border-bottom-left-radius: 29px;
+    user-select: none;
   }
   &__sign-out {
-  background-color: $tone-green;
-  height: 50px;
-  color: $color_white;
-  line-height: 50px;
-  font-size: $fs_md;
-  font-weight: bold;
-  letter-spacing: 0.4px;
-  border: 0;
-  cursor: pointer;
-  outline: none;
-  user-select: none;
+    background-color: $tone-blue;
+    height: 50px;
+    color: $color_white;
+    line-height: 50px;
+    font-size: $fs_md;
+    font-weight: bold;
+    letter-spacing: 0.4px;
+    border: 0;
+    outline: none;
+    user-select: none;
   }
   &__drop {
-  background-color: $tone-green;
-  height: 50px;
-  color: $color_white;
-  line-height: 50px;
-  font-size: $fs_md;
-  font-weight: bold;
-  letter-spacing: 0.4px;
-  border: 0;
-  cursor: pointer;
-  outline: none;
-  user-select: none;
-  transition:all .3s;
-  position: relative;
+    background-color: $tone-blue;
+    height: 50px;
+    color: $color_white;
+    line-height: 50px;
+    font-size: $fs_md;
+    font-weight: bold;
+    letter-spacing: 0.4px;
+    border: 0;
+    outline: none;
+    user-select: none;
+    transition:all .3s;
+    position: relative;
     &:hover .drop__wrap{
       display:block; 
        visibility: visible;
@@ -278,38 +305,102 @@ export default {
         transform: translateY(0%);
         transition-delay: 0s, 0s, 0.3s;
     }
-    .drop__wrap{
-      visibility: hidden; 
-      opacity: 0;
-      position: absolute;
-      top: 100%;
-      left: 0;
-      width: 100%;
-      transform: translateY(-2em);
-      z-index: -1;
-      transition: all 0.7s ease-in-out 0s, visibility 0s linear 0.3s, z-index 0s linear 0.01s;
-      background-color: $tone-green;
-    }
+
   }
   &__basket {
-  background-color: $tone-green;
-  height: 50px;
-  color: $color_white;
-  line-height: 50px;
-  font-size: $fs_md;
-  font-weight: bold;
-  letter-spacing: 0.4px;
-  border: 0;
-  cursor: pointer;
-  outline: none;
-  border-top-right-radius: 29px;
-  border-bottom-right-radius: 29px;
-  user-select: none;
+    background-color: $tone-blue;
+    height: 50px;
+    color: $color_white;
+    line-height: 50px;
+    font-size: $fs_md;
+    font-weight: bold;
+    letter-spacing: 0.4px;
+    border: 0;
+    outline: none;
+    border-top-right-radius: 29px;
+    border-bottom-right-radius: 29px;
+    user-select: none;
   }
 
 }
 .section {
-  max-width: 890px;
+  max-width: 834px;
   margin:0 auto;
 }
+
+
+.round {
+
+  a {
+    color: #ffffff;
+    text-decoration: none;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    z-index: 4;
+  }
+  .button-s {
+    display: inline-block;
+    position: relative;
+    transition: color 0.5s;
+    &:first-child {
+      width: 400px;
+      width:inherit;
+    }
+    &:before {
+      content: "";
+      position: absolute;
+      z-index: 0;
+      background: #c8d5e469;
+      height: 150px;
+      width: 200px;
+      border-radius: 50%;
+      z-index:2
+    }
+    &:hover{
+      color:#000000;
+    }
+    &:nth-child(1):before {
+      top: 190%;
+      left: -109%;
+      transition: all 0.7s;
+      z-index:2
+    }
+    &:nth-child(1):hover:before {
+      top: -40px;
+      left: -40px;
+    }
+    &:nth-child(2):before {
+      left: -30px;
+      bottom: 100%;
+      transition: all 0.7s;
+      z-index:2
+    }
+    &:nth-child(2):hover:before {
+      bottom: -50px;
+    }
+    &:nth-child(3):before {
+      top: 66px;
+      left: -43%;
+      transition: all 0.7s;
+      z-index:2
+    }
+    &:nth-child(3):hover:before {
+      top: -30px;
+      left: -30px;
+    }
+    &:nth-child(4):before {
+      left: -30px;
+      bottom: 100%;
+      transition: all 0.7s;
+      z-index:2
+    }
+    &:nth-child(4):hover:before {
+      bottom: -20px;
+    }
+  }
+
+}
+
 </style>

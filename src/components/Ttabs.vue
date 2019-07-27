@@ -37,7 +37,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$color: #2bbb3a;
+
 
 .tabs {
   display: flex;
@@ -46,8 +46,8 @@ $color: #2bbb3a;
   margin: 10px 0;
   padding: 0;
   background: white;
-  color: $color;
-  border: 2px solid $color;
+  color: $tone-blue;
+  border: 2px solid $tone-blue;
   border-radius: 20px;
   overflow: hidden;
   margin-bottom: 25px;
@@ -59,10 +59,10 @@ $color: #2bbb3a;
   height: 26px;
   flex-grow: 1;
   text-align: center;
-  color: $color;
+  color: $tone-blue;
   letter-spacing: 0.4px;
   text-transform: lowercase;
-  border-right: 1px solid $color;
+  border-right: 1px solid $tone-blue;
   text-decoration: none;
   cursor: pointer;
 }
@@ -71,7 +71,7 @@ $color: #2bbb3a;
 }
 .active {
   color: white;
-  background: $color;
+  background: $tone-blue;
 }
 span {
   display: inline-block;
