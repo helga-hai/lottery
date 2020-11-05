@@ -10,12 +10,12 @@
 <script>
 export default {
     props:{
-        blockId:Number,
-        id:Number
+        blockId: Number,
+        id: Number
     },
     methods:{
         onPass(){
-            this.$emit('onClickLine',this.blockId)
+            this.$emit('onClickLine', this.blockId)
         }
     }
 }
