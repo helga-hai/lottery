@@ -1,7 +1,7 @@
 <template>
     <div class="block" :id="id">
         <div class="block__line" @click="onPass" :blockId="blockId">
-            <slot></slot>
+            <slot/>
         </div>
         <slot name="controls"></slot>
     </div>
