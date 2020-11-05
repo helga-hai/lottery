@@ -3,7 +3,7 @@
         <div class="block__line" @click="onPass" :blockId="blockId">
             <slot/>
         </div>
-        <slot name="controls"></slot>
+        <slot name="controls" />
     </div>
 </template>
 
