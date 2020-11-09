@@ -8,6 +8,7 @@
 </template>
 <script>
 //1
+//2
 export default {
   name: "App",
   created() {
