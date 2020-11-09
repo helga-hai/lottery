@@ -3,19 +3,19 @@
         <div class="block__line" @click="onPass" :blockId="blockId">
             <slot/>
         </div>
-        <slot name="controls"></slot>
+        <slot name="controls" />
     </div>
 </template>
 
 <script>
 export default {
     props:{
-        blockId:Number,
-        id:Number
+        blockId: Number,
+        id: Number
     },
     methods:{
         onPass(){
-            this.$emit('onClickLine',this.blockId)
+            this.$emit('onClickLine', this.blockId)
         }
     }
 }
