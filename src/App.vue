@@ -7,7 +7,7 @@
   </div>
 </template>
 <script>
-
+//1
 export default {
   name: "App",
   created() {
