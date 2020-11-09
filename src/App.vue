@@ -13,8 +13,6 @@
 //4
 export default {
   name: "App",
-  created() {
-  }
 };
 </script>
 <style lang="scss">
