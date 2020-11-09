@@ -2,15 +2,12 @@
   <div id="app">
     <div id="content">
       <router-view/>
-      <!-- 3 -->
     </div>
 
   </div>
 </template>
 <script>
-//1
-//2
-//4
+
 export default {
   name: "App",
 };
