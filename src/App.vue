@@ -2,6 +2,7 @@
   <div id="app">
     <div id="content">
       <!-- 1 -->
+      <!-- 2 -->
       <router-view/>
     </div>
 
